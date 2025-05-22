@@ -13,6 +13,11 @@ import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import ProductsPage from "./pages/ProductsPage";
 import NotFound from "./pages/NotFound";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import CareersPage from "./pages/CareersPage";
+import TermsPage from "./pages/TermsPage";
+import CategoryPage from "./pages/CategoryPage";
 
 // Components
 import Header from "./components/Header";
@@ -37,6 +42,11 @@ const App = () => (
                   <Route path="/" element={<Home />} />
                   <Route path="/products" element={<ProductsPage />} />
                   <Route path="/product/:id" element={<ProductDetail />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/contact" element={<ContactPage />} />
+                  <Route path="/careers" element={<CareersPage />} />
+                  <Route path="/terms" element={<TermsPage />} />
+                  <Route path="/category/:category" element={<CategoryPage />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>

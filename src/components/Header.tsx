@@ -1,16 +1,17 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { RootState } from '../redux/store';
 import { toggleCart } from '../redux/slices/cartSlice';
 import { useTheme } from '../context/ThemeContext';
-import { ShoppingCart, Sun, Moon } from 'lucide-react';
+import { ShoppingCart, Sun, Moon, Menu } from 'lucide-react';
 
 const Header: React.FC = () => {
   const { items } = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
   const { theme, toggleTheme } = useTheme();
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
 
@@ -21,19 +22,48 @@ const Header: React.FC = () => {
           ShopHub
         </Link>
         
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
-          <Link to="/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+          <NavLink 
+            to="/" 
+            className={({ isActive }) => 
+              isActive 
+                ? "text-blue-600 dark:text-blue-400" 
+                : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+            }
+          >
             Home
-          </Link>
-          <Link to="/products" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+          </NavLink>
+          <NavLink 
+            to="/products" 
+            className={({ isActive }) => 
+              isActive 
+                ? "text-blue-600 dark:text-blue-400" 
+                : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+            }
+          >
             Products
-          </Link>
-          <Link to="/about" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+          </NavLink>
+          <NavLink 
+            to="/about" 
+            className={({ isActive }) => 
+              isActive 
+                ? "text-blue-600 dark:text-blue-400" 
+                : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+            }
+          >
             About
-          </Link>
-          <Link to="/contact" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+          </NavLink>
+          <NavLink 
+            to="/contact" 
+            className={({ isActive }) => 
+              isActive 
+                ? "text-blue-600 dark:text-blue-400" 
+                : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+            }
+          >
             Contact
-          </Link>
+          </NavLink>
         </nav>
         
         <div className="flex items-center space-x-4">
@@ -57,8 +87,76 @@ const Header: React.FC = () => {
               </span>
             )}
           </button>
+          
+          {/* Mobile menu button */}
+          <button 
+            className="md:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <Menu size={20} />
+          </button>
         </div>
       </div>
+      
+      {/* Mobile Navigation */}
+      {mobileMenuOpen && (
+        <nav className="md:hidden bg-white dark:bg-gray-900 px-4 py-2 border-t dark:border-gray-800 animate-fade-in">
+          <ul className="space-y-2">
+            <li>
+              <NavLink 
+                to="/" 
+                className={({ isActive }) => 
+                  `block py-2 ${isActive 
+                    ? "text-blue-600 dark:text-blue-400" 
+                    : "text-gray-700 dark:text-gray-300"}`
+                }
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink 
+                to="/products" 
+                className={({ isActive }) => 
+                  `block py-2 ${isActive 
+                    ? "text-blue-600 dark:text-blue-400" 
+                    : "text-gray-700 dark:text-gray-300"}`
+                }
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Products
+              </NavLink>
+            </li>
+            <li>
+              <NavLink 
+                to="/about" 
+                className={({ isActive }) => 
+                  `block py-2 ${isActive 
+                    ? "text-blue-600 dark:text-blue-400" 
+                    : "text-gray-700 dark:text-gray-300"}`
+                }
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink 
+                to="/contact" 
+                className={({ isActive }) => 
+                  `block py-2 ${isActive 
+                    ? "text-blue-600 dark:text-blue-400" 
+                    : "text-gray-700 dark:text-gray-300"}`
+                }
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Contact
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      )}
     </header>
   );
 };
