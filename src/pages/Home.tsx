@@ -1,8 +1,8 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { products } from '../data/products';
+import { Star } from "lucide-react";
 
 const Home: React.FC = () => {
   const featuredProducts = products.filter(product => product.rating >= 4.5);
